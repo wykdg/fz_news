@@ -20,14 +20,18 @@ class UestcSpider(scrapy.Spider):
         next_page=response.xpath('//li[@class="move-page "]/a/@href')
         if next_page:
             full_url = response.urljoin(next_page[-1].extract())
-            yield scrapy.Request(full_url, callback=self.parse_news_list)
+            # yield scrapy.Request(full_url, callback=self.parse_news_list)
             yield scrapy.Request(full_url, callback=self.parse_news_page)
-
-    def parse_news_list(self,response):
-        news_list=response.xpath('//*[@id="Degas_news_list"]/ul/li/h3/a/@href')
+        news_list = response.xpath('//*[@id="Degas_news_list"]/ul/li/h3/a/@href')
         for news in news_list:
             full_url = response.urljoin(news.extract())
             yield scrapy.Request(full_url, callback=self.parse_news)
+
+    # def parse_news_list(self,response):
+    #     news_list=response.xpath('//*[@id="Degas_news_list"]/ul/li/h3/a/@href')
+    #     for news in news_list:
+    #         full_url = response.urljoin(news.extract())
+    #         yield scrapy.Request(full_url, callback=self.parse_news)
 
     def parse_news(self,response):
         data1 = response.xpath( '//*[@class="Degas_news_title"]/text()').extract()
