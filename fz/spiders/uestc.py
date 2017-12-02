@@ -19,7 +19,7 @@ class UestcSpider(scrapy.Spider):
     def parse_news_page(self,response):
         next_page=response.xpath('//li[@class="move-page "]/a/@href')
         if next_page:
-            full_url = response.urljoin(next_page[0].extract())
+            full_url = response.urljoin(next_page[-1].extract())
             yield scrapy.Request(full_url, callback=self.parse_news_list)
             yield scrapy.Request(full_url, callback=self.parse_news_page)
 
