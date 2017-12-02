@@ -13,3 +13,4 @@ class FzItem(scrapy.Item):
     # name = scrapy.Field()
     title=scrapy.Field()
     content=scrapy.Field()
+    news_type=scrapy.Field()

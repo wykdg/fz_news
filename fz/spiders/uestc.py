@@ -39,7 +39,10 @@ class UestcSpider(scrapy.Spider):
         paragraphs=response.xpath('//*[@class="Degas_news_content"]/p/text()').extract()
 
         content=u'\n'.join(paragraphs)
+        news_type=response.xpath("//a[@class='cell on']/text()").extract()[0].strip()
+
         result=FzItem()
         result['title']=title
         result['content']=content
+        result['news_type']=news_type
         yield result
