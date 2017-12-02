@@ -24,7 +24,7 @@ class UestcSpider(scrapy.Spider):
             yield scrapy.Request(full_url, callback=self.parse_news_page)
 
     def parse_news_list(self,response):
-        news_list=response.xpath('//*[@id="Degas_news_list"]/ul/li[3]/h3/a/@href')
+        news_list=response.xpath('//*[@id="Degas_news_list"]/ul/li/h3/a/@href')
         for news in news_list:
             full_url = response.urljoin(news.extract())
             yield scrapy.Request(full_url, callback=self.parse_news)
