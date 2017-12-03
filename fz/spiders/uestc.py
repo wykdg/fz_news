@@ -27,16 +27,11 @@ class UestcSpider(scrapy.Spider):
             full_url = response.urljoin(news.extract())
             yield scrapy.Request(full_url, callback=self.parse_news)
 
-    # def parse_news_list(self,response):
-    #     news_list=response.xpath('//*[@id="Degas_news_list"]/ul/li/h3/a/@href')
-    #     for news in news_list:
-    #         full_url = response.urljoin(news.extract())
-    #         yield scrapy.Request(full_url, callback=self.parse_news)
 
     def parse_news(self,response):
         data1 = response.xpath( '//*[@class="Degas_news_title"]/text()').extract()
         title=u'\n'.join(data1)
-        paragraphs = response.xpath('//*[@class="Degas_news_content"]/p').xpath('string(.)').extract()
+        paragraphs = response.xpath('//*[@class="Degas_news_content"]').xpath('string(.)').extract()
 
         content=u'\n'.join(paragraphs)
         news_type=response.xpath("//a[@class='cell on']/text()").extract()[0].strip()
