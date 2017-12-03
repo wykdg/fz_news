@@ -6,7 +6,10 @@ import xlwt
 
 work_book = xlwt.Workbook()
 sheet = work_book.add_sheet('data')
-index = 0
+index = 1
+sheet.write(0, 0, 'title')
+sheet.write(0, 1, 'news_type')
+sheet.write(0, 2, 'content')
 for line in open('scraped_data.jl').readlines():
     try:
         line = json.loads(line)
