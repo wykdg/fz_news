@@ -36,7 +36,7 @@ class UestcSpider(scrapy.Spider):
     def parse_news(self,response):
         data1 = response.xpath( '//*[@class="Degas_news_title"]/text()').extract()
         title=u'\n'.join(data1)
-        paragraphs = response.xpath('//*[@class="Degas_news_content"]/p/string()').extract()
+        paragraphs = response.xpath('//*[@class="Degas_news_content"]/p').xpath('string(.)').extract()
 
         content=u'\n'.join(paragraphs)
         news_type=response.xpath("//a[@class='cell on']/text()").extract()[0].strip()
